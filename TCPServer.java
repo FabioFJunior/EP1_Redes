@@ -1,55 +1,37 @@
 import java.io.*;
 import java.net.*;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
 
-public class TCPServer{
+public class TCPServer {
+    // Inicia a conexão com o socket
+    public static ServerSocket getSocket() throws IOException {
+        return new ServerSocket(6789);
+    }
 
-	public static void main(String[] args) throws Exception{
-		int clientSentence;
-		String capitalizedSentece;
+    public static void handleClientConnection(ServerSocket socket) throws IOException {
+        // Aceita a conexão do cliente
+        Socket connectionSocket = socket.accept();
 
-		ServerSocket welcomeSocket = new ServerSocket(6789);
+        // Declara leitores e escritores do cliente
+        BufferedReader clientReader = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
+        OutputStream clientWriter = connectionSocket.getOutputStream();
 
-		Socket connectionSocket = welcomeSocket.accept();
+        // Lê a entrada do cliente
+        int clientInput = clientReader.read();
 
-		BufferedReader inFromClient = new BufferedReader (new InputStreamReader(connectionSocket.getInputStream()));
-
-		DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
-
-		clientSentence = inFromClient.read();
-
-
-		// le info do cliente.txt
-	    Scanner scan = new Scanner(new File("Cliente.txt"));
-		String[] dataUser = new String[3];
-		int cont = 0;
-		while(scan.hasNextLine()){
-			dataUser[cont] = scan.nextLine();
-			cont++;
-		}
-
-		switch (clientSentence){
+        // Executa opção escolhida pelo cliente
+        switch (clientInput) {
             case 49:
-				capitalizedSentece = dataUser[1];
-				outToClient.writeBytes(capitalizedSentece);
+                // Devolve saldo
+                String accountBalance = DataHandler.getAccountBalance();
+                clientWriter.write(accountBalance.getBytes());
+                clientWriter.flush();
                 break;
-
             case 50:
-                capitalizedSentece = "Nome: " + dataUser[0] +  " | " + "Saldo: " + dataUser[1] + " | " + "CPF: " + dataUser[2];
-                outToClient.writeBytes(capitalizedSentece);
+                // Devolve todas as informações pessoais
+                String accountInformation = DataHandler.getAccountInformation();
+                clientWriter.write(accountInformation.getBytes());
+                clientWriter.flush();
                 break;
-
-
-             // mudar informaçoes
-            case 51:
-                
-                break;   
-
-            case 52:
-				
-				break;
         }
-	}
+    }
 }
