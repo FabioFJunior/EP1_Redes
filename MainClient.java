@@ -57,7 +57,7 @@ public class MainClient {
 				
 				limpaTela();
 				modifiedSentence = inFromServer.readLine();
-				System.out.println("Resultado da sua chamada: " + modifiedSentence + "\n\n");
+				System.out.println("Resultado da sua chamada: \n\t" + modifiedSentence + "\n\n");
 				clientSocket.close();
 				break;
 
