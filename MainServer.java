@@ -7,17 +7,21 @@ import java.util.Scanner;
 public class MainServer {
 
     public static void main (String[] args) throws IOException {
-        System.out.println("Para usar um servidor TCP, digite 1. Para um servidor UDP, digite 2");
-        Scanner reader = new Scanner(System.in);
-        String line = reader.nextLine();
+        System.out.println("Para iniciar os servidores digite run:");
+       
+            Scanner reader = new Scanner(System.in);
+            String line = reader.nextLine();
 
-        if (line.equals("1")) {
-            executeTCPServer();
-        } else if (line.equals("2")) {
-            executeUDPServer();
-        } else {
-            System.out.println("Por favor, escolha entre os valores apresentados");
-        }
+            if (line.equals("run")) {
+                executeTCPServer();
+                executeUDPServer();
+
+            } else {
+                System.out.println("Servidor não iniciado");
+                System.exit(0);
+            }
+        
+       
     }
 
     private static void executeTCPServer() throws IOException {
