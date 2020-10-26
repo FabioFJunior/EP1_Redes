@@ -16,14 +16,14 @@ public class TCPClient{
 		DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
 	
 		System.out.println("Olá! Bem-vindo\nPor favor selecione uma número para continuar:\n");
-		System.out.println("\t1: Consular saldo\n\t2: Consultar suas informações\n\t3: Alterar informações\n");
+		System.out.println("\t1: Consultar saldo\n\t2: Consultar suas informações\n");
 
 		BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
 		while(true){
 			sentence = inFromUser.read();
 			// seila pq mas 1 = 49, 2 = 50 e 3 = 51
-			 if(sentence == 49 || sentence == 50 || sentence == 51){
+			 if(sentence == 49 || sentence == 50){
 			 	outToServer.write(sentence);
 			 	break;
 			 }
@@ -31,7 +31,7 @@ public class TCPClient{
 			 else{
 			 	System.out.println("Número inválido !!");
 			 	System.out.println("Por favor insira um número valido!");
-			 	System.out.println("\t1: Consular saldo\n\t2: Consultar suas informações\n\t3: Alterar informações\n");	
+			 	System.out.println("\t1: Consultar saldo\n\t2: Consultar suas informações\n");
 			 }
 		}
 
