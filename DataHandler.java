@@ -11,7 +11,6 @@ public class DataHandler {
 
         // Descarta as primeiras linhas
         scan.nextLine();
-        scan.nextLine();
 
         // Retorna a última linha
         return scan.nextLine();
